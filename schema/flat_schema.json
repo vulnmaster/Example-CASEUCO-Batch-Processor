@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+        "@version": {
+            "type": "string",
+            "description": "The version of the UCO schema being used in the format major.minor.release (e.g. 1.2.3).",
+            "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "@objects": {
+            "type": "array",
+            "items": {
+                "anyOf": [
+                    {
+                        "$ref": "./observable/file.json"
+                    }
+                ]
+            }
+        }
+    },
+    "required": ["@version", "@objects"],
+    "additionalProperties": false
+}

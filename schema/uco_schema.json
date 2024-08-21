@@ -1,0 +1,147 @@
+{
+    "type": "object",
+    "properties": {
+        "@context": {
+            "type": "object"
+        },
+        "@graph": {
+            "type": "array",
+            "items": {
+                "oneOf": [
+                    {
+                        "type": "object",
+                        "required": [
+                            "@id",
+                            "@type"
+                        ],
+                        "additionalProperties": false,
+                        "properties": {
+                            "@id": {
+                                "type": "string"
+                            },
+                            "@type": {
+                                "type": "string",
+                                "const": "uco-observable:File"
+                            },
+                            "uco-core:hasFacet": {
+                                "type": "array",
+                                "items": {
+                                    "oneOf": [
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "@id",
+                                                "@type"
+                                            ],
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "@id": {
+                                                    "type": "string"
+                                                },
+                                                "@type": {
+                                                    "type": "string",
+                                                    "const": "uco-observable:ContentDataFacet"
+                                                },
+                                                "sizeInBytes": {
+                                                    "type": "integer",
+                                                    "minimum": 0
+                                                },
+                                                "uco-observable:hash": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "required": [
+                                                            "@id",
+                                                            "@type"
+                                                        ],
+                                                        "properties": {
+                                                            "@id": {
+                                                                "type": "string"
+                                                            },
+                                                            "@type": {
+                                                                "type": "string",
+                                                                "const": "uco-types:Hash"
+                                                            },
+                                                            "uco-types:hashMethod": {
+                                                                "type": "object",
+                                                                "properties": {
+                                                                    "@type": {
+                                                                        "type": "string",
+                                                                        "const": "uco-vocabulary:HashNameVocab"
+                                                                    },
+                                                                    "@value": {
+                                                                        "type": "string"
+                                                                    }
+                                                                },
+                                                                "uco-types:hashValue": {
+                                                                    "type": "object",
+                                                                    "properties": {
+                                                                        "@type": {
+                                                                            "type": "string",
+                                                                            "const": "xsd:hexBinary"
+                                                                        },
+                                                                        "@value": {
+                                                                            "type": "string"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "type": "object",
+                                            "required": [
+                                                "@id",
+                                                "@type"
+                                            ],
+                                            "additionalProperties": false,
+                                            "properties": {
+                                                "@id": {
+                                                    "type": "string"
+                                                },
+                                                "@type": {
+                                                    "type": "string",
+                                                    "const": "uco-observable:FileFacet"
+                                                },
+                                                "fileName": {
+                                                    "type": "string"
+                                                },
+                                                "filePath": {
+                                                    "type": "string"
+                                                },
+                                                "observableCreatedTime": {
+                                                    "type": "object",
+                                                    "required": [
+                                                        "@type",
+                                                        "@value"
+                                                    ],
+                                                    "properties": {
+                                                        "@type": {
+                                                            "type": "string",
+                                                            "const": "xsd:dateTime"
+                                                        },
+                                                        "@value": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        }
+    },
+    "required": [
+        "@context",
+        "@graph"
+    ],
+    "additionalProperties": false
+}

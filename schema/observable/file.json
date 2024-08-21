@@ -1,0 +1,47 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "@id": {
+            "type": "string"
+        },
+        "@type": {
+            "type": "string",
+            "value": "file"
+        },
+        "filename": {
+            "type": "string",
+            "description": "The name of the file, including the extension."
+        },
+        "filepath": {
+            "type": "string",
+            "description": "The path to the file on disk, including the filename."
+        },
+        "size": {
+            "type": "integer",
+            "description": "The size of the file in bytes.",
+            "minimum": 0
+        },
+        "hashes": {
+            "type": "object",
+            "properties": {
+                "md5": {
+                    "type": "string",
+                    "description": "The MD5 hash of the file.",
+                    "pattern": "^[a-fA-F0-9]{32}$"
+                },
+                "sha1": {
+                    "type": "string",
+                    "description": "The SHA-1 hash of the file.",
+                    "pattern": "^[a-fA-F0-9]{40}$"
+                },
+                "sha256": {
+                    "type": "string",
+                    "description": "The SHA-256 hash of the file.",
+                    "pattern": "^[a-fA-F0-9]{64}$"
+                }
+            }
+        }
+    },
+    "required": ["@id", "@type", "filename"]
+}
