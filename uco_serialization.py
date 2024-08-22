@@ -36,6 +36,7 @@ class CASEUCO:
     def add_file_system_entry(self, filename, filepath, write_time, sha256_hash, size_in_bytes):
         file_entry_id = f"kb:file_entry-{self.generate_uuid()}"
         content_data_facet_id = f"kb:content-data-facet-{self.generate_uuid()}"
+        file_facet_id = f"kb:file-facet-{self.generate_uuid()}"
         hash_id = f"kb:hash-{self.generate_uuid()}"
 
         file_entry = {
@@ -43,15 +44,19 @@ class CASEUCO:
             "@type": "uco-observable:File",
             "uco-core:hasFacet": [
                 {
-                    "@id": content_data_facet_id,
-                    "@type": "uco-observable:ContentDataFacet",
+                    "@id": file_facet_id,
+                    "@type": "uco-observable:FileFacet",
                     "uco-observable:fileName": filename,
                     "uco-observable:filePath": filepath,
-                    "uco-observable:sizeInBytes": size_in_bytes,
                     "uco-observable:observableCreatedTime": {
                         "@type": "xsd:dateTime",
                         "@value": write_time
                     },
+                },
+                {
+                    "@id": content_data_facet_id,
+                    "@type": "uco-observable:ContentDataFacet",
+                    "uco-observable:sizeInBytes": size_in_bytes,
                     "uco-observable:hash": [
                         {
                             "@id": hash_id,

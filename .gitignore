@@ -6,4 +6,4 @@ __pycache__/
 *.jsonld
 
 # Generated JSON
-input_data.jsonld
+input_data.json
