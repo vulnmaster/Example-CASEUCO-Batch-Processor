@@ -20,4 +20,10 @@ with open(data_path, "r") as data_file:
     data = json.load(data_file)
 
 # Validate the data against the schema
-jsonschema.validate(instance=data, schema=schema)
+try:
+    jsonschema.validate(instance=data, schema=schema)
+    print("Data is valid")
+except jsonschema.exceptions.ValidationError as e:
+    print(f"Data is invalid: {e.message}")
+    print(e)
+    sys.exit(1)

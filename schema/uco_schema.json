@@ -1,4 +1,8 @@
 {
+    "$id": "https://unifiedcyberontology.org/schemas/uco-file.json",
+    "$schema": "http://json-schema.org/draft/2020-12/schema#",
+    "title": "UCO File Schema",
+    "description": "Schema for UCO File",
     "type": "object",
     "properties": {
         "@context": {
@@ -7,7 +11,7 @@
         "@graph": {
             "type": "array",
             "items": {
-                "oneOf": [
+                "anyOf": [
                     {
                         "type": "object",
                         "required": [
@@ -26,110 +30,9 @@
                             "uco-core:hasFacet": {
                                 "type": "array",
                                 "items": {
-                                    "oneOf": [
-                                        {
-                                            "type": "object",
-                                            "required": [
-                                                "@id",
-                                                "@type"
-                                            ],
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "@id": {
-                                                    "type": "string"
-                                                },
-                                                "@type": {
-                                                    "type": "string",
-                                                    "const": "uco-observable:ContentDataFacet"
-                                                },
-                                                "sizeInBytes": {
-                                                    "type": "integer",
-                                                    "minimum": 0
-                                                },
-                                                "uco-observable:hash": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "object",
-                                                        "required": [
-                                                            "@id",
-                                                            "@type"
-                                                        ],
-                                                        "properties": {
-                                                            "@id": {
-                                                                "type": "string"
-                                                            },
-                                                            "@type": {
-                                                                "type": "string",
-                                                                "const": "uco-types:Hash"
-                                                            },
-                                                            "uco-types:hashMethod": {
-                                                                "type": "object",
-                                                                "properties": {
-                                                                    "@type": {
-                                                                        "type": "string",
-                                                                        "const": "uco-vocabulary:HashNameVocab"
-                                                                    },
-                                                                    "@value": {
-                                                                        "type": "string"
-                                                                    }
-                                                                },
-                                                                "uco-types:hashValue": {
-                                                                    "type": "object",
-                                                                    "properties": {
-                                                                        "@type": {
-                                                                            "type": "string",
-                                                                            "const": "xsd:hexBinary"
-                                                                        },
-                                                                        "@value": {
-                                                                            "type": "string"
-                                                                        }
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        },
-                                        {
-                                            "type": "object",
-                                            "required": [
-                                                "@id",
-                                                "@type"
-                                            ],
-                                            "additionalProperties": false,
-                                            "properties": {
-                                                "@id": {
-                                                    "type": "string"
-                                                },
-                                                "@type": {
-                                                    "type": "string",
-                                                    "const": "uco-observable:FileFacet"
-                                                },
-                                                "fileName": {
-                                                    "type": "string"
-                                                },
-                                                "filePath": {
-                                                    "type": "string"
-                                                },
-                                                "observableCreatedTime": {
-                                                    "type": "object",
-                                                    "required": [
-                                                        "@type",
-                                                        "@value"
-                                                    ],
-                                                    "properties": {
-                                                        "@type": {
-                                                            "type": "string",
-                                                            "const": "xsd:dateTime"
-                                                        },
-                                                        "@value": {
-                                                            "type": "string"
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
+                                    "anyOf": [
+                                        { "$ref": "#/$defs/uco-file-facet" },
+                                        { "$ref": "#/$defs/uco-content-data-facet" }
                                     ]
                                 }
                             }
@@ -143,5 +46,113 @@
         "@context",
         "@graph"
     ],
-    "additionalProperties": false
+    "additionalProperties": false,
+    "$defs": {
+        "uco-content-data-facet": {
+            "type": "object",
+            "required": [
+                "@id",
+                "@type"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "@id": {
+                    "type": "string"
+                },
+                "@type": {
+                    "type": "string",
+                    "const": "uco-observable:ContentDataFacet"
+                },
+                "sizeInBytes": {
+                    "type": "integer",
+                    "minimum": 0
+                },
+                "uco-observable:hash": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/uco-hash"
+                    }
+                }
+            }
+        },
+        "uco-file-facet": {
+            "type": "object",
+            "required": [
+                "@id",
+                "@type"
+            ],
+            "additionalProperties": false,
+            "properties": {
+                "@id": {
+                    "type": "string"
+                },
+                "@type": {
+                    "type": "string",
+                    "const": "uco-observable:FileFacet"
+                },
+                "fileName": {
+                    "type": "string"
+                },
+                "filePath": {
+                    "type": "string"
+                },
+                "observableCreatedTime": {
+                    "type": "object",
+                    "required": [
+                        "@type",
+                        "@value"
+                    ],
+                    "properties": {
+                        "@type": {
+                            "type": "string",
+                            "const": "xsd:dateTime"
+                        },
+                        "@value": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "uco-hash": {
+            "type": "object",
+            "required": [
+                "@id",
+                "@type"
+            ],
+            "properties": {
+                "@id": {
+                    "type": "string"
+                },
+                "@type": {
+                    "type": "string",
+                    "const": "uco-types:Hash"
+                },
+                "uco-types:hashMethod": {
+                    "type": "object",
+                    "properties": {
+                        "@type": {
+                            "type": "string",
+                            "const": "uco-vocabulary:HashNameVocab"
+                        },
+                        "@value": {
+                            "type": "string"
+                        }
+                    },
+                    "uco-types:hashValue": {
+                        "type": "object",
+                        "properties": {
+                            "@type": {
+                                "type": "string",
+                                "const": "xsd:hexBinary"
+                            },
+                            "@value": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
